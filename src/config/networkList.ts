@@ -8,6 +8,12 @@ export type NetworkInfo = {
 export type NetworkName = keyof typeof networkList;
 
 export const networkList = {
+  "Local": {
+    "currency": "ETH",
+    "chainId": 31337,
+    "RPC": "http://127.0.0.1:8545",
+    "explorer": ""
+  },
   "Ethereum": {
     "currency": "ETH",
     "chainId": 1,

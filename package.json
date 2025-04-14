@@ -17,7 +17,7 @@
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build",
-    "start": "node build/index.js",
+    "start": "node build/src/index.js",
     "dev": "ts-node-esm -T src/server.ts",
     "mcp:server": "node build/src/mcpServer.js",
     "test": "jest --config jest.config.cjs 'src/.*\\.ts$'",

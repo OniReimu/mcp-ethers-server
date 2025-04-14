@@ -1,4 +1,5 @@
 export type DefaultProvider =
+  | "Local"
   | "Ethereum"
   | "Polygon PoS"
   | "Arbitrum"
@@ -37,6 +38,7 @@ export type DefaultProvider =
   | "Sonic Mainnet";
 
 export const DEFAULT_PROVIDERS: DefaultProvider[] = [
+  "Local",
   "Ethereum",
   "Polygon PoS",
   "Arbitrum",
