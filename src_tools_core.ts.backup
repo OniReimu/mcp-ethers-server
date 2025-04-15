@@ -957,44 +957,16 @@ ${saveToEnv ? "Private key has been saved to environment variables for this sess
               text: `MOCK TRANSACTION (not sent): \n${JSON.stringify(mockTxResult, null, 2)}`
             }]
           };
-        } else {
-          // Actually send the transaction
-          const ethProvider = await ethersService.getProvider(provider, chainId);
-          const connectedWallet = wallet.connect(ethProvider);
-          
-          // Send the transaction
-          const txResponse = await connectedWallet.sendTransaction(tx);
-          
-          // Wait for the transaction to be mined
-          const receipt = await txResponse.wait();
-          
-          // Return the transaction details
-          const txResult = serializeData({
-            hash: txResponse.hash,
-            from: txResponse.from,
-            to: txResponse.to,
-            value: txResponse.value,
-            nonce: txResponse.nonce,
-            gasLimit: txResponse.gasLimit,
-            gasPrice: txResponse.gasPrice,
-            maxFeePerGas: txResponse.maxFeePerGas,
-            maxPriorityFeePerGas: txResponse.maxPriorityFeePerGas,
-            data: txResponse.data,
-            chainId: txResponse.chainId,
-            blockNumber: receipt ? receipt.blockNumber : null,
-            blockHash: receipt ? receipt.blockHash : null,
-            timestamp: Date.now(),
-            confirmations: receipt ? receipt.confirmations : 0,
-            status: receipt ? receipt.status : null
-          });
-          
-          return {
-            content: [{ 
-              type: "text", 
-              text: `TRANSACTION SENT AND MINED: \n${JSON.stringify(txResult, null, 2)}`
-            }]
-          };
         }
+        
+        // If not in mock mode, we should reject since we don't want to actually send transactions from tests
+        return {
+          isError: true,
+          content: [{ 
+            type: "text", 
+            text: "Non-mock transactions are not supported in this implementation. Set mockMode: true to simulate transactions."
+          }]
+        };
       } catch (error) {
         return {
           isError: true,
@@ -1117,49 +1089,16 @@ ${saveToEnv ? "Private key has been saved to environment variables for this sess
               text: `MOCK TRANSACTION WITH OPTIONS (not sent): \n${JSON.stringify(mockTxResult, null, 2)}`
             }]
           };
-        } else {
-          // Get nonce for the wallet if not provided
-          if (nonce === undefined) {
-            const ethProvider = await ethersService.getProvider(provider, chainId);
-            tx.nonce = await ethProvider.getTransactionCount(wallet.address);
-          }
-          
-          // Actually send the transaction
-          const ethProvider = await ethersService.getProvider(provider, chainId);
-          const connectedWallet = wallet.connect(ethProvider);
-          
-          // Send the transaction
-          const txResponse = await connectedWallet.sendTransaction(tx);
-          
-          // Wait for the transaction to be mined
-          const receipt = await txResponse.wait();
-          
-          // Return the transaction details
-          const txResult = serializeData({
-            hash: txResponse.hash,
-            from: txResponse.from,
-            to: txResponse.to,
-            value: txResponse.value,
-            nonce: txResponse.nonce,
-            gasLimit: txResponse.gasLimit,
-            maxFeePerGas: txResponse.maxFeePerGas,
-            maxPriorityFeePerGas: txResponse.maxPriorityFeePerGas,
-            data: txResponse.data,
-            chainId: txResponse.chainId,
-            blockNumber: receipt ? receipt.blockNumber : null,
-            blockHash: receipt ? receipt.blockHash : null,
-            timestamp: Date.now(),
-            confirmations: receipt ? receipt.confirmations : 0,
-            status: receipt ? receipt.status : null
-          });
-          
-          return {
-            content: [{ 
-              type: "text", 
-              text: `TRANSACTION WITH OPTIONS SENT AND MINED: \n${JSON.stringify(txResult, null, 2)}`
-            }]
-          };
         }
+        
+        // If not in mock mode, we should reject since we don't want to actually send transactions from tests
+        return {
+          isError: true,
+          content: [{ 
+            type: "text", 
+            text: "Non-mock transactions are not supported in this implementation. Set mockMode: true to simulate transactions."
+          }]
+        };
       } catch (error) {
         return {
           isError: true,

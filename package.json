@@ -9,10 +9,10 @@
   "license": "MIT",
   "homepage": "https://github.com/crazyrabbitLTC/mcp-ethers-server",
   "type": "module",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
   "bin": {
-    "mcp-ethers-wallet": "build/index.js"
+    "mcp-ethers-wallet": "build/src/index.js"
   },
   "scripts": {
     "build": "tsc",
